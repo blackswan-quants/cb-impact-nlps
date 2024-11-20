@@ -19,7 +19,7 @@ model = AutoModelForSequenceClassification.from_pretrained(model_name)
 
 nlp = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
 
-df = df[df["date"].dt.year == 2022]
+df = df[df["date"].dt.year == 2021]
 #df = df.head()
 print(df)
 
@@ -35,9 +35,9 @@ df["finbert_score"] = df["finbert_pos"] - df["finbert_neg"]
 df["sentiment"], df["confidence"] = zip(*df["text_by_minute"].apply(lambda x : sa.analyze_sentiment(x, nlp)))
 
 # Salviamo i risultati in un nuovo file CSV
-df.to_csv("sentiment_2023.csv", index=False)
+df.to_csv("sentiment_2021.csv", index=False)
 pickle_helper = mh.PickleHelper(df)
-pickle_helper.pickle_dump('fedspeechees_sentiment_2022')
+pickle_helper.pickle_dump('fedspeechees_sentiment_2021')
 
 print(df)
 
