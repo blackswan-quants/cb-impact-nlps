@@ -72,7 +72,28 @@ def aggregate_sentiment_confidence(df):
 
 
 def aggregate_sentiment_iterator(start_date, end_date, pickle_file_name):
+    """
+    Aggregate sentiment confidence data from multiple pickle files over a specified date range.
 
+    This function iterates over the years from `start_date` to `end_date` (inclusive), loading
+    a corresponding pickle file for each year from the "./pickle_files/" directory. Each file's name 
+    is constructed by appending the year and the ".pkl" extension to the provided `pickle_file_name` prefix.
+    The loaded data is then processed using `hsa.aggregate_sentiment_confidence`, and the resulting
+    DataFrame is concatenated into a final DataFrame containing aggregated sentiment confidence data 
+    across the entire date range.
+
+    Parameters:
+        start_date (int): The starting year (inclusive) of the date range.
+        end_date (int): The ending year (inclusive) of the date range.
+        pickle_file_name (str): The base name of the pickle files (without the year and file extension).
+                                Files are expected to be named in the format:
+                                "./pickle_files/{pickle_file_name}{year}.pkl".
+
+    Returns:
+        pd.DataFrame: A pandas DataFrame containing the aggregated sentiment confidence data from all 
+                      processed pickle files.
+    """
+    
     final_result = pd.DataFrame()
 
     for i in range(start_date, end_date+1):
@@ -81,7 +102,7 @@ def aggregate_sentiment_iterator(start_date, end_date, pickle_file_name):
         pickle_file_name_curr = './pickle_files/' + pickle_file_name + str(i) + '.pkl'
 
         # open the pickle
-        df = open (pickle_file_name_curr, "rb")
+        df = open(pickle_file_name_curr, "rb")
         df = pickle.load(df)
 
         # aggregate the data to the current year
