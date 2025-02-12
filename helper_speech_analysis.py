@@ -35,7 +35,7 @@ def analyze_sentiment(text, nlp):
     result = nlp(text[:512])  # FinBERT ha un limite di 512 token
     return result[0]["label"], result[0]["score"]
 
-import pandas as pd
+
 
 def aggregate_sentiment_confidence(df):
     """
@@ -69,6 +69,7 @@ def aggregate_sentiment_confidence(df):
     grouped = grouped.sort_values(by=['date', 'speaker', 'sentiment'])
     
     return grouped
+
 
 
 def aggregate_sentiment_iterator(start_date, end_date, pickle_file_name):
