@@ -1,6 +1,0 @@
-[submodule "helpermodules"]
-	path = helpermodules
-	url = https://github.com/quantfin-sfpolimi/helpermodules.git
-[submodule "helpermodules2"]
-	path = helpermodules2
-	url = https://github.com/quantfin-sfpolimi/helpermodules.git
