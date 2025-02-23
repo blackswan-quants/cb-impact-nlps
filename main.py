@@ -59,7 +59,7 @@ df_speech=df_speech_final
 
 
 deltabefore = 5
-deltaafter=5
+deltaafter = 5
 #combining together all the values to have a final dataframe including datas for 
 #speech, sentiment, pct_change
 df_speech_final, df_prices_final = filtering(df_prices, df_speech, df_sentiment, deltabefore, deltaafter)
