@@ -43,7 +43,8 @@ def change_time(df_speech, dfnew):
         newtime = pd.to_datetime(dfnew.iloc[i]['opening_time'])  # Ensure newtime is a Timestamp
 
         # Find rows in df_speech matching speaker, date, and title
-        mask = (df_speech['speaker'] == speaker) & (df_speech['date'] == date) & (df_speech['title'] == title)
+        mask = (
+        (df_speech['date'] == date) & ((df_speech['title']==title) | (df_speech['speaker']==speaker)))
 
         # Update the minimum timestamp and set the "check" flag
         if mask.any():
@@ -59,6 +60,18 @@ def change_time(df_speech, dfnew):
 
     # Count the remaining unique texts and calculate the drop ratio
     r1 = df_speech['text'].nunique()
-    print('The drop ratio is', (1-(r1 / r2)) * 100, '%')
+    print('When comparing df_speech with df_fed the drop ratio is', (1-(r1 / r2)) * 100, '% \nWe have dropped ',r2-r1,'values')
+    #update the timestamp values with the date value of the corresponding row 
+    df_speech['timestamp'] = df_speech.apply(
+    lambda row: row['date'].replace(hour=row['timestamp'].hour, 
+                                    minute=row['timestamp'].minute, 
+                                    second=row['timestamp'].second), 
+    axis=1
+)
+    #updating the timezone info 
+    df_speech['timestamp'] = df_speech['timestamp'].dt.tz_localize('America/New_York')
+
+    df_speech.loc[df_speech['timestamp'].apply(lambda x: x.tzinfo.utcoffset(x) == pd.Timedelta(hours=-4)), 'timestamp'] += pd.Timedelta(hours=1)
+
 
     return df_speech

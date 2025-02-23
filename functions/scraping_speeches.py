@@ -10,6 +10,7 @@ import requests
 import os
 from datetime import datetime, date
 import re
+from helpermodules import memory_handling as mh
 
 def breakdown_html(url):
     # Example URL
@@ -68,9 +69,9 @@ def breakdown_html(url):
         titles_list=titles_list[0:]
         times_list=times_list[1:]
         dates_list=dates_list[1:]
-        print("Titles List:", titles_list)
-        print("Times List:", times_list)
-        print("Dates List:", dates_list)
+        #print("Titles List:", titles_list)
+        #print("Times List:", times_list)
+        #print("Dates List:", dates_list)
     else:
         print(f"Failed to fetch the page: {response.status_code}")
     return titles_list, dates_list, times_list
@@ -196,50 +197,48 @@ def add_timezone(df):
 
     # Function to ensure that 'date' and 'timestamp' are datetime objects and handle them
     def process_row(row):
-        # Step 1: Ensure both 'date' and 'timestamp' are datetime objects
-        date = pd.to_datetime(row['date'], format='%y:%m:%d')  # Ensure 'date' is in datetime format
-        timestamp = pd.to_datetime(row['timestamp'], format='%H:%M:%S').time()  # Ensure 'timestamp' is in datetime format
-        
-        # Step 2: Combine the date and timestamp into a single datetime object
-        combined_datetime = datetime.combine(date, timestamp)
-
-        # Step 3: Make sure the datetime object is tz-naive
-        combined_datetime = combined_datetime.replace(tzinfo=None)
-
-        # Step 4: Add the correct Eastern Time Zone (with or without DST)
-        localized_time = eastern.localize(combined_datetime, is_dst=None)
-
-        # Step 5: Cut the date and keep only time in hh:mm:ss format with the timezone
-        final_timestamp = localized_time.strftime('%H:%M:%S%:z')  # Keep only time and timezone info
-
+        try:
+            # Ensure both 'date' and 'timestamp' are datetime objects
+            date = pd.to_datetime(row['date'], format='%y:%m:%d')  # Ensure 'date' is in datetime format
+            timestamp = pd.to_datetime(row['timestamp'], format='%H:%M:%S').time()  # Ensure 'timestamp' is in datetime format
+            # Combine and localize the datetime
+            combined_datetime = datetime.combine(date, timestamp)
+            localized_time = eastern.localize(combined_datetime, is_dst=None)
+            final_timestamp = localized_time.strftime('%H:%M:%S%:z')  # Keep only time and timezone info
+        except Exception as e:
+            print(f"Error processing row: {row}. Error: {e}")
+            final_timestamp = None  # Return None or any default value
         return final_timestamp
 
-    # Step 6: Apply the function to the whole dataset
+        # Step 6: Apply the function to the whole dataset
     df['timestamp'] = df.apply(process_row, axis=1)
-    
+        
     return df
 
-def main():
+def main(yearlist):
     #list month- year 
-    year=2024
+    
     months = ['january', 'february', 'march', 'april', 'may', 'june', 
           'july', 'august', 'september', 'october', 'november', 'december']
     host = 'www.federalreserve.gov'
     prefix = '/newsevents/'
     suffix = '.htm'
     final_combined_df = pd.DataFrame()
-    for month in months:
-        mid_str = f"{year}-{month}"
-        url  = 'https://' + host + prefix + mid_str + suffix
-        print('processing datas for',month,year,'\n')
-        titles_list, dates_list, times_list = breakdown_html(url)
-        final_df = create_dataframe(titles_list, dates_list, times_list, month, year)
-        ultimate_df = remove_time_from_datetime(final_df)
-        ultimate_df = add_timezone(ultimate_df)
-        final_combined_df = pd.concat([final_combined_df, ultimate_df], ignore_index=True)
+    for year in yearlist:
+        for month in months:
+            mid_str = f"{year}-{month}"
+            url  = 'https://' + host + prefix + mid_str + suffix
+            print('processing datas for',month,year,'\n')
+            titles_list, dates_list, times_list = breakdown_html(url)
+            final_df = create_dataframe(titles_list, dates_list, times_list, month, year)
+            ultimate_df = remove_time_from_datetime(final_df)
+            ultimate_df = add_timezone(ultimate_df)
+            final_combined_df = pd.concat([final_combined_df, ultimate_df], ignore_index=True)
 
     print(final_combined_df)
-    final_combined_df.to_csv('2024speeches.csv', index=False)
+    final_combined_df.to_csv('2020-2024speeches.csv', index=False)
+    pickle_helper = mh.PickleHelper(final_combined_df)
+    pickle_helper.pickle_dump('2020-2024fedspeeches')
 
 if __name__ == "__main__":
     main()
