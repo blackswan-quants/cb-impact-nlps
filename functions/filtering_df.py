@@ -16,12 +16,13 @@ def calculate_speech_durations(df_speech):
     """
     # Ensure the 'date' column is in datetime format
     df_speech['date'] = pd.to_datetime(df_speech['date'])
-
     # Group by 'date', 'speaker', and 'speech' and count rows to calculate durations
     speech_durations = df_speech.groupby(['date', 'speaker', 'title']).size().reset_index(name='duration')
-
+    speech_durations = speech_durations[speech_durations['duration']>=5]
     # Merge the calculated durations back into the original DataFrame
-    df_speech = df_speech.merge(speech_durations, on=['date', 'speaker', 'title'], how='left')
+    df_speech = df_speech.merge(speech_durations, on=['date', 'speaker', 'title'], how='right')
+
+
 
     return df_speech
 
@@ -47,7 +48,7 @@ def find_timestart(df_speech):
 
     return grouped_df
 
-def filtering(df_prices, df_speech, deltabefore=0, deltaafter=0):
+def filtering_function(df_prices, df_speech, deltabefore=0, deltaafter=0):
     """
     Filters df_prices by retaining only rows where 'timestamp' falls within the time range
     of speeches in df_speech, including optional buffers before and after the speech duration.
@@ -70,7 +71,10 @@ def filtering(df_prices, df_speech, deltabefore=0, deltaafter=0):
     df_prices['datetime'] = pd.to_datetime(df_prices['datetime'])
 
     # Prepare durations and select earliest timestamps
+    len1 = len(df_speech.link.unique())
     durations_df = calculate_speech_durations(df_speech)
+    len2 = len(durations_df.link.unique())
+    print(f'the number of elements less than 5 mins long are {len1-len2}')
     durations_df = find_timestart(durations_df)
     durations_df['timestamp'] = durations_df.apply(
         lambda row: row['timestamp'].replace(year=row['date'].year, month=row['date'].month, day=row['date'].day),
@@ -79,23 +83,28 @@ def filtering(df_prices, df_speech, deltabefore=0, deltaafter=0):
 
     # Initialize list for storing filtered rows
     filtered_rows = []
-
+    i=1
     # Iterate over each speech and filter df_prices accordingly
     for _, speech in durations_df.iterrows():
         start_time = pd.to_datetime(speech['timestamp']) - pd.Timedelta(minutes=deltabefore)
         duration = speech['duration']
         end_time = pd.to_datetime(speech['timestamp']) + pd.Timedelta(minutes=duration + deltaafter)
-        print(start_time,end_time,'\n\n')
+        
         # Filter rows based on time range
         mask = (df_prices['datetime'] >= start_time) & (df_prices['datetime'] <= end_time)
         filtered_subset = df_prices[mask].copy()
+        if filtered_subset.empty:
+            print(f"No price data found for speech: {speech['title']} by {speech['speaker']} on {speech['date']}")
+            i=i+1
+            continue  # Skip the rest of the loop for this speech
 
         # Add speech-related details
         filtered_subset['title'] = speech['title']
         filtered_subset['speaker'] = speech['speaker']
         filtered_rows.append(filtered_subset)
 
-    # Combine filtered rows into a single dataframe     
+    # Combine filtered rows into a single dataframe  
+    print(f'{i} speeches have found no corresponding values')   
     filtered_df = pd.concat(filtered_rows, ignore_index=True)
 
     return filtered_df
@@ -129,27 +138,46 @@ def main(df_prices, df_speech, df_sentiment, deltabefore=0, deltaafter=0):
         how='left'
     )
     df_speech_final.rename(columns={'speech': 'title'}, inplace=True)
-    
+
+    # eliminate duplicates 
+    df_speech_final = df_speech_final.drop_duplicates(subset='timestamp', keep='first')
+
 
     # Filter prices based on speech data
-    df_prices_final = filtering(df_prices, df_speech_final, deltabefore, deltaafter)
-
+    df_prices_final = filtering_function(df_prices, df_speech_final, deltabefore, deltaafter)
     
+
     # Calculate percentage change in price and merge with speech data
     df_prices_final.rename(columns={'datetime': 'timestamp'}, inplace=True)
-    df_prices_final['pct_change'] = df_prices_final.groupby(['title', 'date'])['close'].pct_change()
+    df_prices_final['timestamp'] = pd.to_datetime(df_prices_final['timestamp'])
+    def calc_pct_change(group):
+        # Sort the group by timestamp
+        group = group.sort_values('timestamp')
+        
+        # Calculate pct_change on 'close'
+        group['pct_change'] = group['close'].pct_change()
+        
+        return group
+
+    # Apply the custom function on each group defined by 'title' and 'date'
+    df_prices_final = df_prices_final.groupby(['title', 'date'], group_keys=False).apply(calc_pct_change)
     df_speech_final.rename(columns={'speech':'title'}, inplace=True)
+
 
     df_speech_final['timestamp'] = df_speech_final.apply(
         lambda row: row['timestamp'].replace(year=row['date'].year, month=row['date'].month, day=row['date'].day),
         axis=1
     )
+    df_speech_final['date'] = pd.to_datetime(df_speech_final['date'])
+    df_prices_final['date'] = pd.to_datetime(df_prices_final['date'])
+
+    #make sure they are both sorted by date
 
     df_speech_final = pd.merge(
         df_speech_final,
-        df_prices_final[['date', 'title', 'timestamp', 'pct_change']],
+        df_prices_final[['date', 'title', 'timestamp', 'pct_change','volume','close']],
         on=['date', 'title', 'timestamp'],
-        how='left'
+        how='right'
     )
 
     return df_speech_final, df_prices_final
