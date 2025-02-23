@@ -1,7 +1,7 @@
 import pandas as pd
 import pytz
 import re
-from helpermodules2 import memory_handling as mh
+from libs.helpermodules import memory_handling as mh
 
 # Load the data
 df = pd.read_csv('fedspeeches.csv')
