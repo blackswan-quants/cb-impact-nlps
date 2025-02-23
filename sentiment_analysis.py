@@ -5,7 +5,7 @@ import pandas as pd
 import scipy
 import torch
 import helper_speech_analysis as sa
-import memory_handling as mh
+from helpermodules import memory_handling as mh
 
 
 df = open ("./pickle_files/fedspeeches_preprocessed.pkl", "rb")

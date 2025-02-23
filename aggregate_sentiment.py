@@ -1,5 +1,5 @@
 import helper_speech_analysis as hsa
-import memory_handling as mh
+from helpermodules import memory_handling as mh
 
 #define variables
 start_date = 2020
