@@ -4,51 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6520dbf-703d-4f58-8687-9f1628430189" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    <list default="true" id="b6520dbf-703d-4f58-8687-9f1628430189" name="Changes" comment="Started refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/correlationstudy.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/2020-2024fed.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/2020-2024prices.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/2020-2024sentiment.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/2020-2024speeches.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/2024speeches.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/US SPX 500 (Mini) 1 Minute (1).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/df_prices.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/fedspeeches.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/sp500minute.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/speech_volatility_analysis.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv_files/updated_speeches.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/datetimescraping.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/densitydistribution.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/df_prices.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/analysis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/calculate_correlation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/combine_sentiment.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/compute_sentiment.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/correlations_functions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/dfpricespklcreation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/filtering_df.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/retrieve_datas.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/scraping_speeches.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/update_realtime.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpermodules2/docs/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpermodules2/docs/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpermodules2/docs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpermodules2/docs/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/helpermodules" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2020-2024fedspeeches.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2020-2024prices.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2020-2024sentiment.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2020-2024speeches.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2020sentiment.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2021sentiment.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2022sentiment.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2023sentiment.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/2024sentiment.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pickle_files/fedspeeches_preprocessed.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/volatility2024.ipynb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,8 +84,17 @@
       <updated>1740307407440</updated>
       <workItem from="1740307408792" duration="1247000" />
       <workItem from="1740762799264" duration="655000" />
-      <workItem from="1740763468464" duration="4395000" />
+      <workItem from="1740763468464" duration="5130000" />
     </task>
+    <task id="LOCAL-00001" summary="Started refactoring">
+      <option name="closed" value="true" />
+      <created>1740768939454</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1740768939454</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,8 +138,12 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Started refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started refactoring" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/cb_impact_nlps$memory_handling.coverage" NAME="memory_handling Coverage Results" MODIFIED="1740764221232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/cb_impact_nlps$main.coverage" NAME="main Coverage Results" MODIFIED="1740765260090" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/cb_impact_nlps$main.coverage" NAME="main Coverage Results" MODIFIED="1740772425705" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
