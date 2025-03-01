@@ -3,4 +3,4 @@
 *.py
 speakers.txt
 /api.env
-/.idea
+idea/workspace.xml
