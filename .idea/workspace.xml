@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6520dbf-703d-4f58-8687-9f1628430189" name="Changes" comment="Integrated density distribution into main.py">
+    <list default="true" id="b6520dbf-703d-4f58-8687-9f1628430189" name="Changes" comment="Before removing the last notebooks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/datetimescraping.ipynb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/prova23_02.ipynb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +86,7 @@
       <updated>1740307407440</updated>
       <workItem from="1740307408792" duration="1247000" />
       <workItem from="1740762799264" duration="655000" />
-      <workItem from="1740763468464" duration="9653000" />
+      <workItem from="1740763468464" duration="10787000" />
     </task>
     <task id="LOCAL-00001" summary="Started refactoring">
       <option name="closed" value="true" />
@@ -150,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740826035788</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Before removing the last notebooks">
+      <option name="closed" value="true" />
+      <created>1740917448058</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740917448058</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,10 +210,11 @@
     <MESSAGE value="Added fabio's last function" />
     <MESSAGE value="Before removing the notebooks" />
     <MESSAGE value="Integrated density distribution into main.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Integrated density distribution into main.py" />
+    <MESSAGE value="Before removing the last notebooks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Before removing the last notebooks" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/cb_impact_nlps$memory_handling.coverage" NAME="memory_handling Coverage Results" MODIFIED="1740764221232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/cb_impact_nlps$main.coverage" NAME="main Coverage Results" MODIFIED="1740825592165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/cb_impact_nlps$main.coverage" NAME="main Coverage Results" MODIFIED="1740917290266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
