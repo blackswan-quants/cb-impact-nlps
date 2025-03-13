@@ -816,7 +816,10 @@ def main(df: pd.DataFrame, deltabefore: int = 0, deltaafter: int = 0, top_n: int
     best_volatility = get_best_values(volatility, number=top_n)
 
     # Plot sentiment vs. cumulative return
-    plot_sentiment_vs_cumret(df, best_volatility, deltabefore, deltaafter, degree=degree)
+    try:
+        plot_sentiment_vs_cumret(df, best_volatility, deltabefore, deltaafter, degree=degree)
+    except:
+        print("Error plotting sentiment vs. cumulative return")
 
     # Plot VWAP bands with volume
     plot_vwap_by_speech(df, best_volatility)
