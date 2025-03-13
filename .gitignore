@@ -1,6 +1,5 @@
 *.iml
 *.xml
-*.py
 speakers.txt
 /api.env
 .idea/workspace.xml
