@@ -37,6 +37,7 @@ from fredapi import Fred
 import os
 from dotenv import load_dotenv, find_dotenv
 from utils import memory_handling as mh
+from pathlib import Path
 
 
 # -------------------------------------------------------------------------
@@ -684,16 +685,16 @@ def load_fred_bond_data(start_date: str, end_date: str) -> pd.DataFrame:
     load_dotenv(dotenv_path)
     FRED_API_KEY = os.getenv('fred_api')
 
-    # Define the directory and filename for the pickle file
-    pickle_dir = os.path.join("..", "data", "pickle_files")
-    os.makedirs(pickle_dir, exist_ok=True)
+    project_root = Path(__file__).resolve().parents[3]
+
     pickle_filename = "2020-2024bond.pkl"
-    pickle_file = os.path.join(pickle_dir, pickle_filename)
+    file_path = project_root / "data" / "pickle_files" / pickle_filename
+
 
     # Check if the local pickle file exists
-    if os.path.exists(pickle_file):
+    if os.path.exists(file_path):
         print("Loading bond data from local pickle file...")
-        helper = mh.PickleHelper.pickle_load(pickle_file)
+        helper = mh.PickleHelper.pickle_load(pickle_filename)
         data = helper.obj
     else:
         print("Local bond pickle file not found. Fetching data from FRED API...")

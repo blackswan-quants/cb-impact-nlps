@@ -2,6 +2,7 @@
 import pickle
 import re
 import os
+from pathlib import Path
 
 class PickleHelper:
     def __init__(self, obj):
@@ -24,8 +25,8 @@ class PickleHelper:
         if not re.search(r"^.*\.pkl$", filename):
             filename += ".pkl"
 
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_dir, "..", "data", "pickle_files",filename)
+        project_root = Path(__file__).resolve().parent.parent
+        file_path = project_root / "data" / "pickle_files" / filename
 
         with open(file_path, "wb") as f:
            pickle.dump(self.obj, f)
@@ -47,14 +48,13 @@ class PickleHelper:
         if not re.search(r"^.*\.pkl$", filename):
             filename += ".pkl"
 
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_dir, "..","data","pickle_files", filename)
-
+        project_root = Path(__file__).resolve().parent.parent
+        file_path = project_root / "data" / "pickle_files" / filename
 
         try:
             with open(file_path, "rb") as f:
                 pcklHelper = PickleHelper(pickle.load(f))
             return pcklHelper
         except FileNotFoundError:
-            print("This file " + file_path + " does not exists")
+            print("This file " + str(file_path) + " does not exists")
             return None
